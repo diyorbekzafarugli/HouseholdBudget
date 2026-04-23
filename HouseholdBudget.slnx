@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/HouseholdBudget.Api/HouseholdBudget.Api.csproj" />
+    <Project Path="src/HouseholdBudget.Application/HouseholdBudget.Application.csproj" />
+    <Project Path="src/HouseholdBudget.Domain/HouseholdBudget.Domain.csproj" />
+    <Project Path="src/HouseholdBudget.Infrastructure/HouseholdBudget.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/HouseholdBudget.Application.Tests/HouseholdBudget.Application.Tests.csproj" />
+    <Project Path="tests/HouseholdBudget.Domain.Tests/HouseholdBudget.Domain.Tests.csproj" />
+    <Project Path="tests/HouseholdBudget.Integration.Tests/HouseholdBudget.Integration.Tests.csproj" />
+  </Folder>
+</Solution>
