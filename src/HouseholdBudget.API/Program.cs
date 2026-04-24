@@ -5,8 +5,7 @@ using HouseholdBudget.Infrastructure.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder
-    .AddSerilogLogging();
+builder.AddSerilogLogging();
 
 builder.Services
     .AddApplication()

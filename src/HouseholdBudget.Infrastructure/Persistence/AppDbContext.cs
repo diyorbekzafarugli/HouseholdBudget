@@ -1,6 +1,5 @@
 ﻿using HouseholdBudget.Domain.Common;
 using HouseholdBudget.Domain.Entities;
-using HouseholdBudget.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace HouseholdBudget.Infrastructure.Persistence;
