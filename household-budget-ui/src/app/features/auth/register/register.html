@@ -1,0 +1,51 @@
+<div class="auth-container">
+      <mat-card class="auth-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon class="title-icon">account_balance_wallet</mat-icon>
+            Регистрация
+          </mat-card-title>
+          <mat-card-subtitle>Создайте новый аккаунт</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Имя пользователя</mat-label>
+              <input matInput formControlName="username" placeholder="Иван">
+              <mat-icon matPrefix>person</mat-icon>
+              <mat-error>Минимум 3 символа</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" type="email">
+              <mat-icon matPrefix>email</mat-icon>
+              <mat-error>Неверный формат email</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Пароль</mat-label>
+              <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'">
+              <mat-icon matPrefix>lock</mat-icon>
+              <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+              <mat-error>Минимум 8 символов</mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit"
+              class="full-width submit-btn" [disabled]="loading">
+              <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+              <span *ngIf="!loading">Зарегистрироваться</span>
+            </button>
+          </form>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <p class="login-link">
+            Уже есть аккаунт? <a routerLink="/auth/login">Войти</a>
+          </p>
+        </mat-card-actions>
+      </mat-card>
+</div>

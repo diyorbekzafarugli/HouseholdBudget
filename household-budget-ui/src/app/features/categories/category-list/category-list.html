@@ -1,0 +1,119 @@
+    <div class="categories">
+      <h1 class="page-title">Категории</h1>
+
+      <div class="content-grid">
+        <!-- Add Form -->
+        <mat-card class="form-card">
+          <mat-card-header>
+            <mat-card-title>
+              {{ editingCategory ? 'Редактировать' : 'Новая категория' }}
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Название</mat-label>
+                <input matInput formControlName="name" placeholder="Например: Кафе">
+                <mat-icon matPrefix>label</mat-icon>
+                <mat-error>Введите название</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Тип</mat-label>
+                <mat-select formControlName="type">
+                  <mat-option [value]="1">
+                    <mat-icon style="color:#4caf50">trending_up</mat-icon> Доход
+                  </mat-option>
+                  <mat-option [value]="2">
+                    <mat-icon style="color:#f44336">trending_down</mat-icon> Расход
+                  </mat-option>
+                </mat-select>
+                <mat-error>Выберите тип</mat-error>
+              </mat-form-field>
+
+              <div class="form-actions">
+                <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+                  <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+                  <span *ngIf="!loading">
+                    {{ editingCategory ? 'Сохранить' : 'Добавить' }}
+                  </span>
+                </button>
+                @if (editingCategory) {
+                  <button mat-stroked-button type="button" (click)="cancelEdit()">
+                    Отмена
+                  </button>
+                }
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Categories Table -->
+        <mat-card class="table-card">
+          <mat-card-header>
+            <mat-card-title>Все категории</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            @if (loadingList()) {
+              <div class="loading"><mat-spinner></mat-spinner></div>
+            } @else {
+              <!-- Income -->
+              <h3 class="group-title income-title">
+                <mat-icon>trending_up</mat-icon> Доходы
+              </h3>
+              @for (cat of incomeCategories(); track cat.id) {
+                <div class="category-item">
+                  <div class="cat-info">
+                    <mat-icon class="income-icon">label</mat-icon>
+                    <span>{{ cat.name }}</span>
+                    @if (cat.isDefault) {
+                      <span class="default-badge">По умолчанию</span>
+                    }
+                  </div>
+                  <div class="cat-actions">
+                    @if (!cat.isDefault) {
+                      <button mat-icon-button color="primary"
+                        (click)="startEdit(cat)" matTooltip="Редактировать">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                      <button mat-icon-button color="warn"
+                        (click)="delete(cat.id)" matTooltip="Удалить">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    }
+                  </div>
+                </div>
+              }
+
+              <!-- Expense -->
+              <h3 class="group-title expense-title">
+                <mat-icon>trending_down</mat-icon> Расходы
+              </h3>
+              @for (cat of expenseCategories(); track cat.id) {
+                <div class="category-item">
+                  <div class="cat-info">
+                    <mat-icon class="expense-icon">label</mat-icon>
+                    <span>{{ cat.name }}</span>
+                    @if (cat.isDefault) {
+                      <span class="default-badge">По умолчанию</span>
+                    }
+                  </div>
+                  <div class="cat-actions">
+                    @if (!cat.isDefault) {
+                      <button mat-icon-button color="primary"
+                        (click)="startEdit(cat)" matTooltip="Редактировать">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                      <button mat-icon-button color="warn"
+                        (click)="delete(cat.id)" matTooltip="Удалить">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    }
+                  </div>
+                </div>
+              }
+            }
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>

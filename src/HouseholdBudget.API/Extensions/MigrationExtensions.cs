@@ -15,6 +15,7 @@ public static class MigrationExtensions
         {
             app.Logger.LogInformation("Applying {Count} pending migrations...",
                 pendingMigrations.Count());
+
             await context.Database.MigrateAsync();
             app.Logger.LogInformation("Migrations applied successfully");
         }

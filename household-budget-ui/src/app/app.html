@@ -1,0 +1,59 @@
+    <ng-container *ngIf="authService.isLoggedIn(); else authLayout">
+      <mat-sidenav-container class="sidenav-container">
+        <mat-sidenav mode="side" opened class="sidenav">
+          <div class="sidenav-header">
+            <mat-icon class="logo-icon">account_balance_wallet</mat-icon>
+            <span class="logo-text">Бухгалтерия</span>
+          </div>
+
+          <mat-nav-list>
+            <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link">
+              <mat-icon matListItemIcon>dashboard</mat-icon>
+              <span matListItemTitle>Главная</span>
+            </a>
+            <a mat-list-item routerLink="/transactions" routerLinkActive="active-link">
+              <mat-icon matListItemIcon>receipt_long</mat-icon>
+              <span matListItemTitle>Транзакции</span>
+            </a>
+            <a mat-list-item routerLink="/categories" routerLinkActive="active-link">
+              <mat-icon matListItemIcon>category</mat-icon>
+              <span matListItemTitle>Категории</span>
+            </a>
+          </mat-nav-list>
+
+          <div class="sidenav-footer">
+            <button mat-list-item (click)="logout()" class="logout-btn">
+              <mat-icon>logout</mat-icon>
+              <span>Выйти</span>
+            </button>
+          </div>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+          <mat-toolbar class="toolbar">
+            <span class="toolbar-spacer"></span>
+            <button mat-icon-button [matMenuTriggerFor]="userMenu">
+              <mat-icon>account_circle</mat-icon>
+            </button>
+            <mat-menu #userMenu>
+              <div class="user-info">
+                <p>{{ authService.currentUser()?.username }}</p>
+                <p class="user-email">{{ authService.currentUser()?.userId }}</p>
+              </div>
+              <button mat-menu-item (click)="logout()">
+                <mat-icon>logout</mat-icon> Выйти
+              </button>
+            </mat-menu>
+          </mat-toolbar>
+
+          <div class="content">
+            <router-outlet />
+          </div>
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+    </ng-container>
+
+    <ng-template #authLayout>
+      <router-outlet />
+    </ng-template>
+<router-outlet />

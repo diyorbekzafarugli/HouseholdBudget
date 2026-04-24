@@ -1,0 +1,74 @@
+.dashboard { max-width: 1200px; margin: 0 auto; }
+.page-title { font-size: 28px; font-weight: 700; color: #1a237e; margin-bottom: 24px; }
+.loading { display: flex; justify-content: center; padding: 60px; }
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.summary-card { border-radius: 12px !important; }
+.summary-card mat-card-content { padding: 20px !important; }
+.card-header { display: flex; align-items: center; gap: 8px; color: #666; margin-bottom: 12px; }
+.amount { font-size: 22px; font-weight: 700; }
+
+.income { border-left: 4px solid #4caf50 !important; }
+.income .amount { color: #4caf50; }
+.income mat-icon { color: #4caf50; }
+
+.expense { border-left: 4px solid #f44336 !important; }
+.expense .amount { color: #f44336; }
+.expense mat-icon { color: #f44336; }
+
+.balance { border-left: 4px solid #2196f3 !important; }
+.balance .amount { color: #2196f3; }
+.balance mat-icon { color: #2196f3; }
+.balance.negative .amount { color: #f44336; }
+
+.total { border-left: 4px solid #ff9800 !important; }
+.total .amount { color: #ff9800; }
+.total mat-icon { color: #ff9800; }
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.chart-card, .recent-card { border-radius: 12px !important; }
+
+canvas { max-height: 260px; margin: 16px auto; display: block; }
+
+.chart-legend { margin-top: 16px; }
+.legend-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f5f5f5;
+  font-size: 14px;
+}
+.legend-name { flex: 1; color: #333; }
+.legend-value { color: #666; margin-right: 12px; }
+.legend-percent { color: #f44336; font-weight: 700; min-width: 50px; text-align: right; }
+
+.transaction-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+}
+.t-left { display: flex; align-items: center; gap: 12px; }
+.t-category { font-weight: 500; color: #333; }
+.t-date { font-size: 12px; color: #999; }
+.income-icon { color: #4caf50; }
+.expense-icon { color: #f44336; }
+.income-amount { color: #4caf50; font-weight: 600; }
+.expense-amount { color: #f44336; font-weight: 600; }
+
+mat-card-header { display: flex; align-items: center; }
+.spacer { flex: 1; }
+
+.no-data { text-align: center; padding: 40px; color: #999; }
+.no-data mat-icon { font-size: 48px; width: 48px; height: 48px; }

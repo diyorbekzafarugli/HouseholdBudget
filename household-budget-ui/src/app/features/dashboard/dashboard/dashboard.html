@@ -1,0 +1,120 @@
+<div class="dashboard">
+  <h1 class="page-title">Главная</h1>
+
+  @if (loading()) {
+    <div class="loading">
+      <mat-spinner></mat-spinner>
+    </div>
+  } @else if (data()) {
+    <div class="summary-grid">
+      <mat-card class="summary-card income">
+        <mat-card-content>
+          <div class="card-header">
+            <mat-icon>trending_up</mat-icon>
+            <span>Доходы</span>
+          </div>
+          <div class="amount">{{ data()!.formattedTotalIncome }}</div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="summary-card expense">
+        <mat-card-content>
+          <div class="card-header">
+            <mat-icon>trending_down</mat-icon>
+            <span>Расходы</span>
+          </div>
+          <div class="amount">{{ data()!.formattedTotalExpense }}</div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="summary-card balance" [class.negative]="data()!.balance < 0">
+        <mat-card-content>
+          <div class="card-header">
+            <mat-icon>account_balance</mat-icon>
+            <span>Баланс</span>
+          </div>
+          <div class="amount">{{ data()!.formattedBalance }}</div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="summary-card total">
+        <mat-card-content>
+          <div class="card-header">
+            <mat-icon>receipt_long</mat-icon>
+            <span>Транзакций</span>
+          </div>
+          <div class="amount">{{ data()!.totalCount }}</div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="content-grid">
+      <mat-card class="chart-card">
+        <mat-card-header>
+          <mat-card-title>Расходы по категориям</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          @if (expenseChartData().length > 0) {
+            <canvas baseChart
+              [data]="pieChartData"
+              [options]="pieChartOptions"
+              type="pie">
+            </canvas>
+            <div class="chart-legend">
+              @for (item of expenseChartData(); track item.categoryName) {
+                <div class="legend-item">
+                  <span class="legend-name">{{ item.categoryName }}</span>
+                  <span class="legend-value">{{ item.formattedTotal }}</span>
+                  <span class="legend-percent">{{ item.percentage }}%</span>
+                </div>
+              }
+            </div>
+          } @else {
+            <div class="no-data">
+              <mat-icon>pie_chart</mat-icon>
+              <p>Нет расходов для отображения</p>
+            </div>
+          }
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Recent Transactions -->
+      <mat-card class="recent-card">
+        <mat-card-header>
+          <mat-card-title>Последние транзакции</mat-card-title>
+          <div class="spacer"></div>
+          <a mat-button color="primary" routerLink="/transactions">Все</a>
+        </mat-card-header>
+        <mat-card-content>
+          @if (data()!.items.length > 0) {
+            @for (t of data()!.items.slice(0, 5); track t.id) {
+              <div class="transaction-item">
+                <div class="t-left">
+                  <mat-icon [class]="t.type === 1 ? 'income-icon' : 'expense-icon'">
+                    {{ t.type === 1 ? 'arrow_upward' : 'arrow_downward' }}
+                  </mat-icon>
+                  <div>
+                    <div class="t-category">{{ t.categoryName }}</div>
+                    <div class="t-date">{{ t.formattedDate }}</div>
+                  </div>
+                </div>
+                <div [class]="t.type === 1 ? 'income-amount' : 'expense-amount'">
+                  {{ t.type === 1 ? '+' : '-' }}{{ t.formattedAmount }}
+                </div>
+              </div>
+              <mat-divider></mat-divider>
+            }
+          } @else {
+            <div class="no-data">
+              <mat-icon>receipt</mat-icon>
+              <p>Нет транзакций</p>
+              <a mat-raised-button color="primary" routerLink="/transactions">
+                Добавить первую
+              </a>
+            </div>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
+</div>

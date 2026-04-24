@@ -1,7 +1,4 @@
-﻿using HouseholdBudget.Application.Common.Formatting;
-using HouseholdBudget.Application.Features.Transactions.Common;
-
-namespace HouseholdBudget.Application.Common.Models;
+﻿namespace HouseholdBudget.Application.Common.Models;
 
 public class PagedResponse<T>
 {

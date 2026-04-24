@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HouseholdBudget.Domain.Enums;
+﻿namespace HouseholdBudget.Domain.Enums;
 
 public enum TransactionType
 {

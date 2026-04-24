@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>
+      {{ data.transaction ? 'Редактировать транзакцию' : 'Новая транзакция' }}
+    </h2>
+
+    <mat-dialog-content>
+      <form [formGroup]="form" class="form">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Тип</mat-label>
+          <mat-select formControlName="type" (selectionChange)="onTypeChange()">
+            <mat-option [value]="1">
+              <mat-icon style="color:#4caf50">trending_up</mat-icon> Доход
+            </mat-option>
+            <mat-option [value]="2">
+              <mat-icon style="color:#f44336">trending_down</mat-icon> Расход
+            </mat-option>
+          </mat-select>
+          <mat-error>Выберите тип</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Категория</mat-label>
+          <mat-select formControlName="categoryId">
+            @for (cat of filteredCategories; track cat.id) {
+              <mat-option [value]="cat.id">{{ cat.name }}</mat-option>
+            }
+          </mat-select>
+          <mat-error>Выберите категорию</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Сумма</mat-label>
+          <input matInput formControlName="amount" type="number" min="0">
+          <mat-icon matSuffix>payments</mat-icon>
+          <mat-error>Введите сумму больше 0</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Дата</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="transactionDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error>Выберите дату</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Комментарий</mat-label>
+          <textarea matInput formControlName="comment" rows="3"></textarea>
+        </mat-form-field>
+      </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button mat-stroked-button mat-dialog-close>Отмена</button>
+      <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="loading">
+        <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+        <span *ngIf="!loading">{{ data.transaction ? 'Сохранить' : 'Добавить' }}</span>
+      </button>
+    </mat-dialog-actions>
